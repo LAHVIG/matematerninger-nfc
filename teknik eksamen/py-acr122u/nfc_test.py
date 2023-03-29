@@ -4,7 +4,7 @@
 
 #reader0-2, left to right
 
-#epic
+#testing lol
 
 data_list = [[0,0],[0,0],[0,0]]
 from src import nfc

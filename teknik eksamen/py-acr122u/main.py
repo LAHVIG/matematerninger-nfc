@@ -30,14 +30,17 @@ print("The first side ",dice_table[0])
 print("The first id ",dice_table[0][0])
 print("The first number ",dice_table[0][1])
 
+allReaders = InitlistOfReaders()
+
 while(True):
     time.sleep(0.1)
     
-    allReaders = listOfReaders()
     for i, reader in enumerate(allReaders):
         readerData = reader.get_data(reader.get_uid())
         data_placeholder = parse_data(readerData,i+1,dice_table)
         data_list = replace_value_by_index(data_list, i, data_placeholder)
         print("Parsed data: ",data_list[i])
 
+    calibrate(data_list)
+    print(calibrated_order)
 

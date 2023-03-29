@@ -32,7 +32,7 @@ def calibrate(list_in, calibrated_order):
     if len(calibrated_order) == 3:
         ""
 
-def listOfReaders() -> list[nfc.Reader]:
+def InitlistOfReaders() -> list[nfc.Reader]:
     readers  = smartcard.System.readers()
     if len(readers) != 0:
         listReaders = []

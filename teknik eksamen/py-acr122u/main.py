@@ -32,37 +32,12 @@ print("The first number ",dice_table[0][1])
 
 while(True):
     time.sleep(0.1)
-
-    try:
-        reader0 = nfc.Reader(0)
-        readerData0 = reader0.get_data(reader0.get_uid())
-        data_placeholder = parse_data(readerData0,1,dice_table)
-        data_list = replace_value_by_index(data_list, 0, data_placeholder)
-        print("parsed data: ",data_list[0])
-
-
-    except:
-        ""
-    try:
-        reader1 = nfc.Reader(1)
-        readerData1 = reader1.get_data(reader1.get_uid())
-        data_placeholder = parse_data(readerData1,2,dice_table)
-        data_list = replace_value_by_index(data_list, 1, data_placeholder)
-        print("parsed data: ",data_list[1])
-
-    except:
-        ""
-    try:
-        reader2 = nfc.Reader(2)
-        readerData2 = reader2.get_data(reader2.get_uid())
-        data_placeholder = parse_data(readerData2,3,dice_table)
-        data_list = replace_value_by_index(data_list, 2, data_placeholder)
-        print("parsed data: ",data_list[2])
-        
-        
-    except:
-        ""
-    calibrate(data_list, calibrated_order)
-    print(calibrated_order)
+    
+    allReaders = listOfReaders()
+    for i, reader in enumerate(allReaders):
+        readerData = reader.get_data(reader.get_uid())
+        data_placeholder = parse_data(readerData,i+1,dice_table)
+        data_list = replace_value_by_index(data_list, i, data_placeholder)
+        print("Parsed data: ",data_list[i])
 
 

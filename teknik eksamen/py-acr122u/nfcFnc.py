@@ -1,3 +1,5 @@
+from src import nfc
+import smartcard.System
 def replace_value_by_index(my_list, index, new_value):
     """
     Replace the value at the given index in my_list with new_value.
@@ -29,3 +31,13 @@ def calibrate(list_in, calibrated_order):
             checked_indexes.remove(i)
     if len(calibrated_order) == 3:
         ""
+
+def listOfReaders() -> list[nfc.Reader]:
+    readers  = smartcard.System.readers()
+    if len(readers) != 0:
+        listReaders = []
+        for i in range(readers):
+            listReaders.append(nfc.Reader(i))
+        return listReaders
+    else:
+        return []

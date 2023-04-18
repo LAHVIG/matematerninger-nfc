@@ -60,6 +60,7 @@ def remap_position(original_position, position_map):
         return mapped_position
 
 checked_indexes = [0,1,2]
+
 def calibrate(list_in):
     ""
     if len(calibrated_order) == 3:

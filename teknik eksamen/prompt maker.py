@@ -11,7 +11,7 @@ def generate_prompt():
     if game_mode == "any":
         print ("any operator allowed")
         prompt[0] = random.choice(dice_number)
-        prompt[1] = "?"
+        prompt[1] = random.choice(dice_operators)
         prompt[2] = random.choice(dice_number)
 
     elif game_mode == "plus_minus":
@@ -27,6 +27,7 @@ def generate_prompt():
         prompt[0] = random.choice(dice_number)
         prompt[1] = random.choice(dice_operators)
         prompt[2] = random.choice(dice_number)
+
     elif game_mode == "random":
         print("choosing operator at random")
         prompt[0] = random.choice(dice_number)
@@ -34,15 +35,22 @@ def generate_prompt():
         prompt[2] = random.choice(dice_number)
 
 def calculate_prompt(prompt):
+    """takes in the prompt and calculates the value"""
     if prompt[1] == "+":
         result = prompt[0] + prompt[2]
         return result
+    
     elif prompt[1] == "-":
         result = prompt[0] - prompt[2]
         return result
+    
     elif prompt[1] == "*":
         result = prompt[0] * prompt[2]
         return result
+    
     elif prompt[1] == "/":
         result = prompt[0] / prompt[2]
         return result
+    
+def calculate_user(answer):
+    """takes in the users answer and calculates the value"""

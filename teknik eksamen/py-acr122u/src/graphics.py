@@ -7,7 +7,7 @@ class Graphics:
     def __init__(self):
         self.window = Tk()
 
-        self.window.geometry("400x400")
+        self.window.geometry("800x400")
 
         self.text1 = Label(self.window, text="Hello World!", font=("Arial", 25))
         self.text1.pack()
@@ -34,8 +34,7 @@ class Graphics:
 graphics = Graphics()
 
 
-while True:
-    graphics.window.update_idletasks()
-    graphics.window.update()
-    graphics.update_text(input())
-    graphics.update_symbol(input())
+#while True:
+    
+#    graphics.update_text(input())
+#    graphics.update_symbol(input())

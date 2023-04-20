@@ -16,7 +16,8 @@ class Graphics:
         self.symbol1.pack()
 
     def update_text(self, text_in):
-        """updates the text based on argument"""
+        """updates the text based on argument, only three elements are expected in text list"""
+        temp_text = text_in[0] + text_in[1] + text_in[2]
         self.text1.config(text= text_in) 
 
     def update_symbol(self, state):
@@ -30,11 +31,3 @@ class Graphics:
 
     def show_error(self):
         ""
-
-graphics = Graphics()
-
-
-#while True:
-    
-#    graphics.update_text(input())
-#    graphics.update_symbol(input())

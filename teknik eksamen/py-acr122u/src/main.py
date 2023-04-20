@@ -133,7 +133,9 @@ while(1):
 
     if placement_correct(data_list):
         graphics.update_text(chopped_data+"="+str(prompt_answer))
-        graphics.update_symbol("solved")
+        if calculate_user(data_list,prompt_answer,"plus_minus"):
+            graphics.update_symbol("solved")
+            has_been_solved = True
     else:
         graphics.update_text("place the dice correctly!")
         graphics.update_symbol("wrong")

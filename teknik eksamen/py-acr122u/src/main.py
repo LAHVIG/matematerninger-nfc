@@ -34,6 +34,13 @@ print("the first side ",dice_table[0])
 print("the first id ",dice_table[0][0])
 print("the first number ",dice_table[0][1])
 
+def placement_correct(data_in):
+    """takes in data_list and checks if the dice are placed correctly"""
+    if data_in[0][0] in ["/","-","*","+"] or data_in[2][0] in ["/","-","*","+"] or data_in[1][0] in [1,2,3,4,5,6]:
+        return False
+    elif data_in[0][0] in [1,2,3,4,5,6] or data_in[2][0] in [1,2,3,4,5,6] or data_in[1][1] in ["/","-","*","+"]:
+        return True
+
 def replace_value_by_index(my_list, index, new_value):
     """
     Replace the value at the given index in my_list with new_value.
@@ -44,7 +51,7 @@ def replace_value_by_index(my_list, index, new_value):
 
 
 def compare_id(list_in, id_in):
-    print(id_in)
+    #print(id_in)
     for i in list_in:
         if i[0] == id_in:
             return i[1]
@@ -58,11 +65,11 @@ def parse_data(data_in, position_in):
 
 def remap_position(original_position, position_map):
     if len(position_map) != 3:
-        print("original position: " ,original_position)
+        #print("original position: " ,original_position)
         return original_position
     else:
         mapped_position = position_map.index(original_position) + 1
-        print("original position: " ,original_position)
+        #print("original position: " ,original_position)
         return mapped_position
 
 checked_indexes = [0,1,2]
@@ -78,7 +85,7 @@ def calibrate(list_in):
             if list_in[i][0] == 'master':
                 calibrated_order.append(list_in[i][1])
                 checked_indexes.remove(i)
-        print(calibrated_order)
+        #print(calibrated_order)
 
 
 while(1):
@@ -115,7 +122,12 @@ while(1):
         ""
     calibrate(data_list)
 
-    graphics.text1.config(text=str(data_list))
+    if placement_correct(data_list):
+        graphics.update_text(data_list)
+        graphics.update_symbol("solved")
+    else:
+        graphics.update_text(data_list)
+        graphics.update_symbol("wrong")
 
     graphics.window.update_idletasks()
     graphics.window.update()

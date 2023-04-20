@@ -4,9 +4,11 @@ import nfc
 from threading import Thread
 import time
 from graphics import *
+from prompt_maker import *
 
-
-
+has_been_solved = True
+"""bool to check if the prompt has been solved by the user"""
+#set to true to start game
 graphics = Graphics()
 
 calibrated_order = []
@@ -91,6 +93,11 @@ def calibrate(list_in):
 while(1):
     time.sleep(0.1)
 
+    if has_been_solved:
+        prompt = generate_prompt("plus_minus")
+        prompt_answer = calculate_prompt(prompt)
+        has_been_solved = False
+
     try:
         reader0 = nfc.Reader(0)
         readerData0 = reader0.get_data(reader0.get_uid())
@@ -122,11 +129,13 @@ while(1):
         ""
     calibrate(data_list)
 
+    chopped_data = str(data_list[0][0]) + str(data_list[1][0]) + str(data_list[2][0])
+
     if placement_correct(data_list):
-        graphics.update_text(data_list)
+        graphics.update_text(chopped_data+"="+str(prompt_answer))
         graphics.update_symbol("solved")
     else:
-        graphics.update_text(data_list)
+        graphics.update_text("place the dice correctly!")
         graphics.update_symbol("wrong")
 
     graphics.window.update_idletasks()

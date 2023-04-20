@@ -7,7 +7,7 @@ dice_operators = ["+","-","*","/"]
 
 
 def generate_prompt(game_mode):
-    """takes in the game mode that decides the prompt"""
+    """any, random, div_mul, plus_minus. takes in the game mode that decides the prompt"""
     prompt = ["","",""]
     if game_mode == "any" or game_mode == "random":
         print ("any operator allowed")
@@ -35,8 +35,21 @@ def calculate_prompt(prompt):
     #yes
     return eval(prompt[0]+prompt[1]+prompt[2])
     
-def calculate_user(answer):
+def calculate_user(answer, result, game_mode):
     """takes in the users answer and calculates the value"""
+    #check if operators are the same
+
+    user_op = answer[1][0]
+    if game_mode == "mul_div":
+        if user_op in ["*","/"]:
+            return calculate_prompt(answer) == result
+
+    if game_mode == "plus_minus":
+        if user_op in ["+", "-"]:
+            return calculate_prompt(answer) == result
+        
+    return calculate_prompt(answer) == result
+
 
 prompt = generate_prompt("plus_minus")
 

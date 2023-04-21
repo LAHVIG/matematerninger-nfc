@@ -39,17 +39,19 @@ def calculate_user(answer, result, game_mode):
     """takes in the users answer and calculates the value"""
     #check if operators are the same
     stripped_data = [str(answer[0][0]),str(answer[1][0]),str(answer[2][0])]
-    user_op = stripped_data[1]
-    if game_mode == "mul_div":
-        if user_op in ["*","/"]:
-            return calculate_prompt(stripped_data) == result
-
-    if game_mode == "plus_minus":
-        if user_op in ["+", "-"]:
-            return calculate_prompt(stripped_data) == result
-        
     return calculate_prompt(stripped_data) == result
 
+def correct_op(usr_in, game_mode):
+    stripped_data = [str(usr_in[0][0]),str(usr_in[1][0]),str(usr_in[2][0])]
+    user_op = stripped_data[1]
+
+    if game_mode == "mul_div":
+        if not user_op in ["*","/"]:
+            return False
+    if game_mode == "plus_minus":
+        if user_op in ["+", "-"]:
+            return False
+    return True 
 
 prompt = generate_prompt("plus_minus")
 

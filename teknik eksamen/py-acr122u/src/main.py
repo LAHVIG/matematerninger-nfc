@@ -11,10 +11,12 @@ has_been_solved = True
 #set to true to start game
 graphics = Graphics()
 
+game_mode = "any"
+
 calibrated_order = []
 
 dice_table = [[[25, 12, 182, 110],1],
-              [[89, 22, 180, 109],2],
+              [[4, 67, 51, 170, 12, 89, 129],2],
               [[57, 175, 190, 110],3],
               [[70, 230, 97, 249],4],
               [[23, 43, 95, 179],5],
@@ -60,6 +62,7 @@ def compare_id(list_in, id_in):
 
 def parse_data(data_in, position_in):
     dice_id = data_in
+    #print(dice_id)
     position = remap_position(position_in, calibrated_order)
     dice_number = compare_id(dice_table, dice_id)
     return [dice_number, position]
@@ -94,7 +97,7 @@ while(1):
     time.sleep(0.1)
 
     if has_been_solved:
-        prompt = generate_prompt("plus_minus")
+        prompt = generate_prompt(game_mode)
         prompt_answer = calculate_prompt(prompt)
         has_been_solved = False
 
@@ -103,39 +106,43 @@ while(1):
         readerData0 = reader0.get_data(reader0.get_uid())
         data_placeholder = parse_data(readerData0,1)
         data_list = replace_value_by_index(data_list, 0, data_placeholder)
-        print("parsed data: ",data_list[0])
-
-
+        #print("parsed data: ",data_list[0])
     except:
         ""
+
+
     try:
         reader1 = nfc.Reader(1)
         readerData1 = reader1.get_data(reader1.get_uid())
         data_placeholder = parse_data(readerData1,2)
         data_list = replace_value_by_index(data_list, 1, data_placeholder)
-        print("parsed data: ",data_list[1])
-
+        #print("parsed data: ",data_list[1])
     except:
         ""
+
+
     try:
         reader2 = nfc.Reader(2)
         readerData2 = reader2.get_data(reader2.get_uid())
         data_placeholder = parse_data(readerData2,3)
         data_list = replace_value_by_index(data_list, 2, data_placeholder)
-        print("parsed data: ",data_list[2])
-        
-        
+        #print("parsed data: ",data_list[2])
     except:
         ""
+
+
     calibrate(data_list)
 
     chopped_data = str(data_list[0][0]) + str(data_list[1][0]) + str(data_list[2][0])
 
     if placement_correct(data_list):
         graphics.update_text(chopped_data+"="+str(prompt_answer))
-        if calculate_user(data_list,prompt_answer,"plus_minus"):
-            graphics.update_symbol("solved")
-            has_been_solved = True
+        if correct_op(data_list, game_mode):
+            if calculate_user(data_list,prompt_answer, game_mode):
+                graphics.update_symbol("solved")
+                has_been_solved = True
+        elif not correct_op(data_list, game_mode):
+            graphics.update_text("use correct operator")
     else:
         graphics.update_text("place the dice correctly!")
         graphics.update_symbol("wrong")

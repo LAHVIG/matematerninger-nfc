@@ -12,6 +12,9 @@ class Graphics:
         self.text1 = Label(self.window, text="Hello World!", font=("Arial", 25))
         self.text1.pack()
 
+        self.game_mode = Label(self.window, text="none", font=('Arial', 25))
+        self.game_mode.pack()
+
         self.symbol1 = Label(self.window, text="✅", font=(None, 25))
         self.symbol1.pack()
 
@@ -28,6 +31,10 @@ class Graphics:
             self.symbol1.config(text="❌")
         if state == "none":
             self.symbol1.config(text="")
+
+    def update_game_mode(self, mode):
+        """takes in the game_mode that will show on the screen"""
+        self.game_mode.config(text=mode)
 
     def show_error(self):
         ""

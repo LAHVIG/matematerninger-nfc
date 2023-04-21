@@ -11,27 +11,27 @@ has_been_solved = True
 #set to true to start game
 graphics = Graphics()
 
-game_mode = "any"
-
+game_mode = "plus_minus"
+"""plus_minus, div_mul, any"""
 calibrated_order = []
 
-dice_table = [[[25, 12, 182, 110],1],
-              [[4, 67, 51, 170, 12, 89, 129],2],
-              [[57, 175, 190, 110],3],
-              [[70, 230, 97, 249],4],
-              [[23, 43, 95, 179],5],
-              [[133, 22, 249, 194],6],
+dice_table = [[[147, 192, 118, 28],1],
+              [[147, 60, 178, 28],2],
+              [[4, 58, 47, 170, 12, 89, 129],3],
+              [[41, 138, 92, 90],4],
+              [[59, 3, 194, 34],5],
+              [[83, 75, 127, 28],6],
               [[4, 74, 54, 170, 12, 89, 129],"master"],
-              [[4, 70, 74, 194, 110, 103, 129],"/"],
-              [[4, 81, 202, 18, 20, 111, 128],"-"],
-              [[4, 66, 74, 194, 110, 103, 129],"*"],
-              [[4, 62, 74, 194, 110, 103, 129],"+"],
-              [[4, 129, 223, 1, 24, 64, 3],1],
-              [[4, 92, 74, 194, 110, 103, 129],2],
-              [[4, 139, 248, 170, 162, 64, 128],3],
-              [[4, 78, 201, 18, 20, 111, 128],4],
-              [[4, 30, 112, 194, 110, 103, 128],5],
-              [[4, 85, 202, 18, 20, 111, 128],6]]
+              [[4, 75, 48, 170, 12, 89, 129],"/"],
+              [[4, 79, 53, 170, 12, 89, 129],"-"],
+              [[4, 89, 61, 170, 12, 89, 129],"*"],
+              [[187, 166, 136, 34],"+"],
+              [[27, 52, 177, 34],1],
+              [[4, 67, 51, 170, 12, 89, 129],2],
+              [[219, 48, 127, 34],3],
+              [[171, 27, 131, 34],4],
+              [[80, 153, 105, 25],5],
+              [[188, 80, 138, 171],6]]
 
 print("the whole list ",dice_table)
 print("the first side ",dice_table[0])
@@ -135,14 +135,15 @@ while(1):
 
     chopped_data = str(data_list[0][0]) + str(data_list[1][0]) + str(data_list[2][0])
 
+    graphics.update_game_mode(game_mode)
     if placement_correct(data_list):
-        graphics.update_text(chopped_data+"="+str(prompt_answer))
         if correct_op(data_list, game_mode):
-            if calculate_user(data_list,prompt_answer, game_mode):
+            graphics.update_text(chopped_data+"="+str(prompt_answer))
+            if calculate_user(data_list,prompt_answer):
                 graphics.update_symbol("solved")
                 has_been_solved = True
-        elif not correct_op(data_list, game_mode):
-            graphics.update_text("use correct operator")
+        else:
+            graphics.update_text("use the correct operator")
     else:
         graphics.update_text("place the dice correctly!")
         graphics.update_symbol("wrong")
